@@ -7,11 +7,13 @@ import { AdaptiveReuseCaseStudyView } from './AdaptiveReuseCaseStudyView';
 import { MarketMindfulnessCaseStudyView } from './MarketMindfulnessCaseStudyView';
 import { KitchenCaseStudyView } from './KitchenCaseStudyView';
 import { FusionFurnitureCaseStudyView } from './FusionFurnitureCaseStudyView';
-import { ThemeToggle } from './ThemeToggle';
+import { StaircaseCaseStudyView } from './StaircaseCaseStudyView';
 import { ARCHITECTURAL_EASE } from './EditorialMotion';
 import { CaseStudyCoverHeader, CoverThumbnailCard } from './CaseStudyCoverHeader';
+import { ProjectOverviewPage } from './ProjectOverviewPage';
+import { DrawingLightbox, LightboxPlateItem } from './DrawingLightbox';
 import { 
-  X, ArrowLeft, ArrowRight, Share2, Check
+  X, ArrowLeft, ArrowRight, Share2, Check, BookOpen
 } from 'lucide-react';
 
 interface Props {
@@ -29,20 +31,18 @@ export const ProjectDetailModal: React.FC<Props> = ({
 }) => {
   const [copiedLink, setCopiedLink] = useState(false);
   const [readProgress, setReadProgress] = useState(0);
-  const [previewPlate, setPreviewPlate] = useState<{
-    title: string;
-    subtitle: string;
-    imageUrl: string;
-  } | null>(null);
+  const [viewMode, setViewMode] = useState<'overview' | 'complete'>('overview');
+  const [pendingSectionId, setPendingSectionId] = useState<string | null>(null);
+  const [lightboxId, setLightboxId] = useState<string | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
-  // Handle ESC key to close preview first or modal
+  // Handle ESC key to close modal (DrawingLightbox captures ESC in capture phase when open)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        if (previewPlate) {
+        if (lightboxId) {
           e.preventDefault();
-          setPreviewPlate(null);
+          setLightboxId(null);
         } else {
           onClose();
         }
@@ -50,16 +50,51 @@ export const ProjectDetailModal: React.FC<Props> = ({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose, previewPlate]);
+  }, [onClose, lightboxId]);
 
-  // Reset modal scroll & preview state when switching projects
+  // Reset modal scroll, preview state & return to overview stage when switching projects
   useEffect(() => {
-    setPreviewPlate(null);
+    setLightboxId(null);
+    setViewMode('overview');
+    setPendingSectionId(null);
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop = 0;
       setReadProgress(0);
     }
   }, [project?.id]);
+
+  // Smooth scroll to requested TOC section after transitioning to complete presentation
+  useEffect(() => {
+    if (viewMode !== 'complete' || !pendingSectionId) return;
+
+    const timer = window.setTimeout(() => {
+      const targetEl = document.getElementById(pendingSectionId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      setPendingSectionId(null);
+    }, 120);
+
+    return () => window.clearTimeout(timer);
+  }, [viewMode, pendingSectionId, project?.id]);
+
+  const handleExploreComplete = (targetSectionId?: string) => {
+    setViewMode('complete');
+    if (targetSectionId) {
+      setPendingSectionId(targetSectionId);
+    } else if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+      setReadProgress(0);
+    }
+  };
+
+  const handleBackToOverview = () => {
+    setViewMode('overview');
+    setPendingSectionId(null);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -124,13 +159,25 @@ export const ProjectDetailModal: React.FC<Props> = ({
       {/* Top Floating Utility Bar */}
       <header className="sticky top-0 z-40 bg-[#E9DFC9]/94 dark:bg-[#101626]/94 backdrop-blur-md border-b border-[#D9CBB1] dark:border-[#2A3759] px-4 md:px-8 py-3.5 flex items-center justify-between gap-3 relative">
         <div className="flex items-center gap-3 min-w-0">
-          <button
-            onClick={onClose}
-            className="flex items-center gap-2 text-xs font-mono tracking-wider uppercase text-[#263D78] dark:text-[#EFE6D5] hover:text-[#802C43] dark:hover:text-[#C45D77] transition-colors py-1 cursor-pointer shrink-0"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Close Case Study</span>
-          </button>
+          {viewMode === 'complete' ? (
+            <button
+              type="button"
+              onClick={handleBackToOverview}
+              className="flex items-center gap-2 text-xs font-mono tracking-wider uppercase text-[#802C43] dark:text-[#C45D77] hover:text-[#263D78] dark:hover:text-[#EFE6D5] transition-colors py-1 cursor-pointer shrink-0 font-medium"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back to Project Contents</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex items-center gap-2 text-xs font-mono tracking-wider uppercase text-[#263D78] dark:text-[#EFE6D5] hover:text-[#802C43] dark:hover:text-[#C45D77] transition-colors py-1 cursor-pointer shrink-0"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>All Projects</span>
+            </button>
+          )}
           <span aria-hidden="true" className="text-[#C7B697] dark:text-[#3A4B75] hidden sm:inline">/</span>
           <span className="text-xs font-mono text-[#5C6D9B] dark:text-[#988C75] hidden sm:inline truncate">
             Project {project.number} — {project.title}
@@ -138,9 +185,6 @@ export const ProjectDetailModal: React.FC<Props> = ({
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          {/* Theme Toggle inside modal utility bar */}
-          <ThemeToggle className="hidden sm:inline-flex mr-1" />
-
           {/* Previous / Next Switcher */}
           <div className="hidden md:flex items-center gap-1 border-r border-[#D9CBB1] dark:border-[#2A3759] pr-3 mr-1">
             <button
@@ -186,7 +230,18 @@ export const ProjectDetailModal: React.FC<Props> = ({
         />
       </header>
 
-      {/* Main Container */}
+      {/* Stage 1: Project Overview & Contents vs Stage 2: Complete Project Presentation */}
+      {viewMode === 'overview' ? (
+        <ProjectOverviewPage
+          project={project}
+          prevProject={prevProject}
+          nextProject={nextProject}
+          onSelectProject={onSelectProject}
+          onExploreComplete={handleExploreComplete}
+          onCloseToProjects={onClose}
+        />
+      ) : (
+      <>
       {project.villaCaseStudy ? (
         <VillaCaseStudyView
           project={project}
@@ -224,6 +279,13 @@ export const ProjectDetailModal: React.FC<Props> = ({
             nextProject={nextProject}
             onSelectProject={onSelectProject}
           />
+        ) : project.staircaseCaseStudy ? (
+          <StaircaseCaseStudyView
+            project={project}
+            prevProject={prevProject}
+            nextProject={nextProject}
+            onSelectProject={onSelectProject}
+          />
         ) : (
         <>
         {/* SECTION 1: PROJECT COVER */}
@@ -252,10 +314,10 @@ export const ProjectDetailModal: React.FC<Props> = ({
               description={project.summary}
               metaItems={[
                 { label: 'Location', value: project.location },
-                { label: 'Academic Period', value: project.year },
+                { label: 'Portfolio Year', value: project.year },
                 {
                   label: 'Designer',
-                  value: 'Dharmi Mojidra (Indus University)',
+                  value: 'Dharmi Mojidra',
                 },
               ]}
               scopeTags={project.scope}
@@ -265,12 +327,7 @@ export const ProjectDetailModal: React.FC<Props> = ({
                 caption: project.subtitle,
                 imageUrl: project.heroImage,
                 isPortraitAmbient: false,
-                onClick: () =>
-                  setPreviewPlate({
-                    title: `${project.number} — ${project.title}`,
-                    subtitle: project.subtitle,
-                    imageUrl: project.heroImage,
-                  }),
+                onClick: () => setLightboxId('cover-hero'),
               }}
               thumbnailStripTitle="Technical Drawings & Spatial Schematics"
               thumbnails={coverThumbnails}
@@ -298,9 +355,20 @@ export const ProjectDetailModal: React.FC<Props> = ({
                 ))}
               </nav>
 
-              <div className="pt-6 border-t border-[#D9CBB1] dark:border-[#2A3759] text-xs font-mono text-[#5C6D9B] dark:text-[#988C75]">
+              <button
+                type="button"
+                onClick={() => setLightboxId('cover-hero')}
+                className="w-full text-left pt-6 border-t border-[#D9CBB1] dark:border-[#2A3759] text-xs font-mono text-[#5C6D9B] dark:text-[#988C75] hover:text-[#802C43] dark:hover:text-[#C45D77] space-y-1 cursor-pointer transition-colors group"
+              >
+                <p className="text-[#263D78] dark:text-[#EFE6D5] group-hover:text-[#802C43] dark:group-hover:text-[#C45D77] font-medium transition-colors">
+                  Extracted Plates
+                </p>
+                <p>Click any plate, schematic, or visual to zoom and inspect details.</p>
+              </button>
+
+              <div className="pt-4 border-t border-[#D9CBB1] dark:border-[#2A3759] text-xs font-mono text-[#5C6D9B] dark:text-[#988C75]">
                 <p>Dharmi Mojidra</p>
-                <p>Indus University</p>
+                <p>Interior Designer</p>
                 <p>Ahmedabad, India</p>
               </div>
             </div>
@@ -627,14 +695,18 @@ export const ProjectDetailModal: React.FC<Props> = ({
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {project.visualizations.map((vis, i) => (
-                  <div key={i} className="border border-[#D9CBB1] dark:border-[#2A3759] bg-[#F3EBDD] dark:bg-[#18223A] p-4">
+                  <div
+                    key={i}
+                    onClick={() => setLightboxId(`vis-${i}`)}
+                    className="border border-[#D9CBB1] dark:border-[#2A3759] hover:border-[#802C43]/60 dark:hover:border-[#C45D77]/60 bg-[#F3EBDD] dark:bg-[#18223A] p-4 cursor-pointer group transition-colors"
+                  >
                     {vis.imageUrl ? (
                       <div className="aspect-[2224/1573] bg-[#F8F3E8] dark:bg-[#1E2A47] overflow-hidden mb-3 border border-[#D9CBB1] dark:border-[#2A3759] p-1.5">
                         <img 
                           src={vis.imageUrl} 
                           alt={vis.perspective}
                           referrerPolicy="no-referrer"
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                         />
                       </div>
                     ) : (
@@ -643,7 +715,7 @@ export const ProjectDetailModal: React.FC<Props> = ({
                           src={project.heroImage} 
                           alt={vis.perspective}
                           referrerPolicy="no-referrer"
-                          className="w-full h-full object-cover grayscale-20 hover:grayscale-0 transition-all duration-500"
+                          className="w-full h-full object-cover grayscale-20 group-hover:grayscale-0 transition-all duration-500 group-hover:scale-[1.02]"
                         />
                       </div>
                     )}
@@ -681,7 +753,7 @@ export const ProjectDetailModal: React.FC<Props> = ({
             {/* SECTION 16: REFLECTION & OUTCOME */}
             <section id="sec-reflection" className="scroll-mt-24 pb-14">
               <span className="text-xs font-mono text-[#802C43] dark:text-[#C45D77] uppercase tracking-wider block mb-2">
-                15 — Designer Reflection & Academic Outcome
+                15 — Designer Reflection &amp; Project Outcome
               </span>
               <h2 className="text-2xl md:text-3xl font-serif-architectural text-[#263D78] dark:text-[#EFE6D5] font-light mb-6">
                 Critical Learnings by Dharmi Mojidra
@@ -691,7 +763,7 @@ export const ProjectDetailModal: React.FC<Props> = ({
                   "{project.reflection.learnings}"
                 </blockquote>
                 <div className="flex items-center gap-2 text-xs font-mono text-[#5C6D9B] dark:text-[#988C75]">
-                  <span className="text-[#263D78] dark:text-[#EFE6D5] font-medium">Academic Recognition:</span>
+                  <span className="text-[#263D78] dark:text-[#EFE6D5] font-medium">Project Focus:</span>
                   <span>{project.reflection.academicSignificance}</span>
                 </div>
               </div>
@@ -729,43 +801,52 @@ export const ProjectDetailModal: React.FC<Props> = ({
         )}
       </div>
       )}
-      {/* Lightbox Overlay for Cover & Thesis Sheet Thumbnails */}
-      {previewPlate && (
-        <div
-          className="fixed inset-0 z-50 bg-[#101626]/92 backdrop-blur-md flex flex-col justify-between p-4 sm:p-8"
-          onClick={() => setPreviewPlate(null)}
-        >
-          <div
-            className="max-w-5xl w-full mx-auto flex items-center justify-between gap-4 border-b border-[#3A4B75] pb-3 text-[#EFE6D5]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="min-w-0">
-              <p className="text-sm font-serif-architectural truncate">{previewPlate.title}</p>
-              <p className="text-xs font-mono text-[#BFB299] truncate">{previewPlate.subtitle}</p>
-            </div>
-            <button
-              type="button"
-              onClick={() => setPreviewPlate(null)}
-              className="p-2 border border-[#3A4B75] hover:border-[#C45D77] text-[#EFE6D5] hover:text-[#E598AC] transition-colors cursor-pointer"
-              aria-label="Close plate preview"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
 
-          <div
-            className="flex-1 flex items-center justify-center overflow-auto py-4"
-            onClick={(e) => e.stopPropagation()}
+      {/* Persistent Bottom Return-to-Contents Bar inside Complete Presentation */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
+        <div className="border-t border-[#C7B697] dark:border-[#2A3759] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={handleBackToOverview}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-5 py-3 border border-[#802C43] dark:border-[#C45D77] text-xs font-mono uppercase tracking-[0.16em] text-[#802C43] dark:text-[#C45D77] hover:bg-[#802C43] hover:text-[#F3EBDD] dark:hover:bg-[#C45D77] dark:hover:text-[#101626] transition-colors cursor-pointer"
           >
-            <img
-              src={previewPlate.imageUrl}
-              alt={previewPlate.title}
-              referrerPolicy="no-referrer"
-              className="max-h-[80vh] max-w-full w-auto object-contain border border-[#2A3759] bg-[#F3EBDD]"
-            />
-          </div>
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>Back to Project Contents</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 border border-[#C7B697] dark:border-[#3A4B75] text-xs font-mono uppercase tracking-[0.16em] text-[#263D78] dark:text-[#EFE6D5] hover:border-[#263D78] dark:hover:border-[#EFE6D5] transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Return to Projects Exhibition</span>
+          </button>
         </div>
+      </div>
+      </>
       )}
+      <DrawingLightbox
+        items={[
+          {
+            id: 'cover-hero',
+            plate: `Pl. ${project.number}.01`,
+            title: `${project.number} — ${project.title}`,
+            subtitle: project.subtitle,
+            imageUrl: project.heroImage,
+          },
+          ...project.visualizations.map((vis, i): LightboxPlateItem => ({
+            id: `vis-${i}`,
+            plate: `Visual 0${i + 1}`,
+            title: vis.perspective,
+            subtitle: vis.caption,
+            imageUrl: vis.imageUrl || project.heroImage,
+          })),
+        ]}
+        activeId={lightboxId}
+        onSelectId={setLightboxId}
+        onClose={() => setLightboxId(null)}
+      />
     </motion.div>
   );
 };

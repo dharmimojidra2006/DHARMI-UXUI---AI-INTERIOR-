@@ -11,17 +11,14 @@ interface Props {
   onExploreProjects: () => void;
   onSelectProject: (project: ProjectCaseStudy) => void;
   introActive?: boolean;
+  isViewingProject?: boolean;
 }
 
 const CHAPTERS = [
-  { id: 'cover', num: '01', label: 'Cover', href: '#cover' },
-  { id: 'about', num: '02', label: 'Profile', href: '#about' },
-  { id: 'projects', num: '03', label: 'Selected Works', href: '#projects' },
-  { id: 'philosophy', num: '04', label: 'Philosophy', href: '#philosophy' },
-  { id: 'process', num: '05', label: 'Process', href: '#process' },
-  { id: 'skills', num: '06', label: 'Competencies', href: '#skills' },
-  { id: 'education', num: '07', label: 'Formation', href: '#education' },
-  { id: 'contact', num: '08', label: 'Dialogue', href: '#contact' },
+  { id: 'cover', num: '00', label: 'Cover', href: '#cover' },
+  { id: 'about', num: '01', label: 'About', href: '#about' },
+  { id: 'projects', num: '02', label: 'Projects', href: '#projects' },
+  { id: 'contact', num: '03', label: 'Contact', href: '#contact' },
 ];
 
 export const Navbar: React.FC<Props> = ({
@@ -30,6 +27,7 @@ export const Navbar: React.FC<Props> = ({
   onExploreProjects,
   onSelectProject,
   introActive = false,
+  isViewingProject = false,
 }) => {
   const [indexDrawerOpen, setIndexDrawerOpen] = useState(false);
   const [hoveredProjectIdx, setHoveredProjectIdx] = useState(0);
@@ -79,10 +77,8 @@ export const Navbar: React.FC<Props> = ({
   }, [indexDrawerOpen]);
 
   const navLinks = [
-    { id: 'projects', label: 'Projects', href: '#projects' },
     { id: 'about', label: 'About', href: '#about' },
-    { id: 'process', label: 'Process', href: '#process' },
-    { id: 'skills', label: 'Skills', href: '#skills' },
+    { id: 'projects', label: 'Projects', href: '#projects' },
     { id: 'contact', label: 'Contact', href: '#contact' },
   ];
 
@@ -98,7 +94,10 @@ export const Navbar: React.FC<Props> = ({
     }
   };
 
-  const activeChapterObj = CHAPTERS.find((c) => c.id === activeChapter) || CHAPTERS[0];
+  // Highlight "Projects" whenever a project overview or complete case study is open
+  const effectiveActiveChapter = isViewingProject ? 'projects' : activeChapter;
+  const activeChapterObj =
+    CHAPTERS.find((c) => c.id === effectiveActiveChapter) || CHAPTERS[0];
   const previewProject = projects[hoveredProjectIdx] || projects[0];
 
   return (
@@ -112,7 +111,7 @@ export const Navbar: React.FC<Props> = ({
         }`}
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#802C43] dark:text-[#C45D77]">
-          01 / Exhibition Monograph
+          Exhibition Monograph
         </span>
         <span aria-hidden="true" className="text-[#C7B697] dark:text-[#3A4B75] text-xs">
           ·
@@ -124,7 +123,7 @@ export const Navbar: React.FC<Props> = ({
 
       <div
         className={`fixed top-5 right-5 sm:top-7 sm:right-[8.125rem] z-40 transition-all duration-500 flex items-center gap-2.5 ${
-          isPastCover || introActive
+          isPastCover || introActive || isViewingProject
             ? 'opacity-0 pointer-events-none -translate-y-2'
             : 'opacity-100 pointer-events-auto translate-y-0'
         }`}
@@ -161,7 +160,7 @@ export const Navbar: React.FC<Props> = ({
               }}
               className="text-sm sm:text-base font-sans font-bold tracking-[0.18em] uppercase text-[#263D78] dark:text-[#EFE6D5] hover:text-[#802C43] dark:hover:text-[#C45D77] transition-colors whitespace-nowrap shrink-0"
             >
-              Dharmi Mojidra
+              DHARMI MOJIDRA
             </a>
             <span
               aria-hidden="true"
@@ -172,18 +171,22 @@ export const Navbar: React.FC<Props> = ({
             </span>
           </div>
 
-          {/* Zone 2: Clean 5-link row with active underline */}
-          <nav className="hidden lg:flex items-center gap-7 xl:gap-8 text-[11px] font-mono tracking-[0.16em] uppercase text-[#1C2D58]/80 dark:text-[#BFB299]">
+          {/* Zone 2: Simplified 3-link row (About, Projects, Contact) with dynamic active underline */}
+          <nav
+            aria-label="Primary Navigation"
+            className="hidden lg:flex items-center gap-8 xl:gap-10 text-[11px] font-mono tracking-[0.16em] uppercase text-[#1C2D58]/80 dark:text-[#BFB299]"
+          >
             {navLinks.map((link) => {
-              const isActive = activeChapter === link.id;
+              const isActive = effectiveActiveChapter === link.id;
               return (
                 <a
-                  key={link.label}
+                  key={link.id}
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavClick(link.href);
                   }}
+                  aria-current={isActive ? 'page' : undefined}
                   className={`relative py-1 transition-colors whitespace-nowrap shrink-0 ${
                     isActive
                       ? 'text-[#263D78] dark:text-[#EFE6D5] font-medium'
@@ -203,10 +206,8 @@ export const Navbar: React.FC<Props> = ({
             })}
           </nav>
 
-          {/* Zone 3: Theme Toggle + Index Menu + Explore Work */}
+          {/* Zone 3: Index Menu */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-            <ThemeToggle className="hidden sm:inline-flex" />
-
             <button
               type="button"
               onClick={() => setIndexDrawerOpen(true)}
@@ -215,15 +216,6 @@ export const Navbar: React.FC<Props> = ({
             >
               <span>Index</span>
               <Plus className="w-3 h-3" />
-            </button>
-
-            <button
-              type="button"
-              onClick={onExploreProjects}
-              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 text-[11px] font-mono uppercase tracking-[0.14em] text-[#F3EBDD] dark:text-[#1C2D58] bg-[#263D78] dark:bg-[#EFE6D5] hover:bg-[#802C43] dark:hover:bg-[#C45D77] dark:hover:text-[#F3EBDD] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              <span>Explore Work</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
 
             {/* Mobile menu trigger */}
@@ -254,7 +246,7 @@ export const Navbar: React.FC<Props> = ({
         }`}
       >
         {CHAPTERS.map((ch) => {
-          const isActive = activeChapter === ch.id;
+          const isActive = effectiveActiveChapter === ch.id;
           return (
             <button
               key={ch.id}
@@ -313,7 +305,6 @@ export const Navbar: React.FC<Props> = ({
               </div>
 
               <div className="flex items-center gap-3">
-                <ThemeToggle />
                 <button
                   type="button"
                   onClick={() => setIndexDrawerOpen(false)}
@@ -327,24 +318,24 @@ export const Navbar: React.FC<Props> = ({
 
             {/* Center Two-Column Architectural Index */}
             <div className="max-w-7xl w-full mx-auto px-6 md:px-10 py-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 grow items-start">
-              {/* Left: Portfolio Chapters 01–08 */}
+              {/* Left: Portfolio Chapters */}
               <div className="lg:col-span-5 space-y-5">
                 <div className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#802C43] dark:text-[#C45D77]">
-                  Portfolio Chapters (01 — 08)
+                  Portfolio Chapters (01 — 03)
                 </div>
 
                 <nav className="divide-y divide-[#D9CBB1] dark:divide-[#2A3759] border-y border-[#D9CBB1] dark:border-[#2A3759]">
                   {CHAPTERS.map((ch, idx) => {
-                    const isActive = activeChapter === ch.id;
+                    const isActive = effectiveActiveChapter === ch.id;
                     return (
                       <motion.button
                         key={ch.id}
                         type="button"
                         initial={{ opacity: 0, x: -16 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.04 + idx * 0.03, duration: 0.45, ease: ARCHITECTURAL_EASE }}
+                        transition={{ delay: 0.04 + idx * 0.04, duration: 0.45, ease: ARCHITECTURAL_EASE }}
                         onClick={() => handleNavClick(ch.href)}
-                        className="w-full py-3.5 flex items-baseline justify-between group text-left cursor-pointer"
+                        className="w-full py-4 flex items-baseline justify-between group text-left cursor-pointer"
                       >
                         <div className="flex items-baseline gap-4">
                           <span className="font-mono text-xs text-[#802C43] dark:text-[#C45D77]">
@@ -371,7 +362,7 @@ export const Navbar: React.FC<Props> = ({
               <div className="lg:col-span-7 space-y-5">
                 <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.2em] text-[#802C43] dark:text-[#C45D77]">
                   <span>Selected Works Catalogue (01 — {String(projects.length).padStart(2, '0')})</span>
-                  <span className="text-[#3D5288] dark:text-[#BFB299]">Click to open case study</span>
+                  <span className="text-[#3D5288] dark:text-[#BFB299]">Click to open overview</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
@@ -427,7 +418,7 @@ export const Navbar: React.FC<Props> = ({
                       <div className="space-y-1">
                         <div className="flex items-center justify-between text-[10px] font-mono text-[#802C43] dark:text-[#C45D77]">
                           <span>Plate {previewProject.number}</span>
-                          <span>{previewProject.year}</span>
+                          {previewProject.year && <span>{previewProject.year}</span>}
                         </div>
                         <div className="font-serif-architectural text-base text-[#263D78] dark:text-[#EFE6D5] leading-snug">
                           {previewProject.title}
@@ -444,7 +435,7 @@ export const Navbar: React.FC<Props> = ({
 
             {/* Bottom Colophon Bar inside Drawer */}
             <div className="max-w-7xl w-full mx-auto px-6 md:px-10 py-5 border-t border-[#D9CBB1] dark:border-[#2A3759] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-[#3D5288] dark:text-[#BFB299]">
-              <span>Dharmi Mojidra · Indus University, Ahmedabad · Class of 2026</span>
+              <span>Dharmi Mojidra · Interior Design Portfolio · Ahmedabad</span>
               <button
                 type="button"
                 onClick={() => {

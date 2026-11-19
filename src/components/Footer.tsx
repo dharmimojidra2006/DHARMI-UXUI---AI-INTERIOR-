@@ -26,20 +26,11 @@ export const Footer: React.FC = () => {
               Spaces shaped by material, atmosphere and the way people experience them.
             </p>
             <p className="text-[#802C43] dark:text-[#C45D77]">
-              Interior Design Portfolio · Graduating Interior Designer
+              Interior Design Portfolio
             </p>
           </div>
 
-          <div className="md:col-span-3 space-y-1">
-            <span className="text-[#263D78] dark:text-[#EFE6D5] font-semibold block mb-2">
-              Academic Affiliation
-            </span>
-            <p>Indus University</p>
-            <p>Department of Interior Design</p>
-            <p>Ahmedabad, Gujarat, India</p>
-          </div>
-
-          <div className="md:col-span-3 flex md:justify-end">
+          <div className="md:col-span-6 flex md:justify-end">
             <button
               type="button"
               onClick={scrollToTop}

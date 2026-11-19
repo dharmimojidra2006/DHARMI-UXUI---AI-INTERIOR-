@@ -1,5 +1,4 @@
 import { ProjectCaseStudy } from '../types';
-import uxuiMateriaHero from '../assets/images/project_uxui_materia_1791448866724.jpg';
 
 export const PROJECTS: ProjectCaseStudy[] = [
   {
@@ -10,7 +9,7 @@ export const PROJECTS: ProjectCaseStudy[] = [
     category: 'adaptive-reuse',
     categoryLabel: 'Adaptive Reuse / Spa & Wellness Retreat',
     location: 'Mirzapur, Ahmedabad, Gujarat',
-    year: 'Studio Assignment · Indus University',
+    year: '',
     heroImage: '/assets/aistudio/image_d3f5a247.png',
     summary: 'Adaptive reuse of the existing R.C. College of Commerce building in Mirzapur, Ahmedabad, into a Spa and Wellness Retreat—retaining the building’s historic character while accommodating spa and therapy rooms, yoga and meditation spaces, hydrotherapy, a café, and relaxation areas.',
     scope: [
@@ -132,7 +131,7 @@ export const PROJECTS: ProjectCaseStudy[] = [
 
     reflection: {
       learnings: 'Studying an existing structure, its climate, and architectural character to adapt educational halls into calm, restorative wellness environments.',
-      academicSignificance: '01 | Adaptive Reuse: Spa & Wellness Retreat — Indus University, Ahmedabad'
+      academicSignificance: '01 | Adaptive Reuse: Spa & Wellness Retreat — Mirzapur, Ahmedabad'
     },
 
     adaptiveReuseCaseStudy: {
@@ -439,7 +438,7 @@ export const PROJECTS: ProjectCaseStudy[] = [
     category: 'adaptive-reuse',
     categoryLabel: 'Adaptive Reuse / Wellness & Retail',
     location: 'Manek Chowk, Ahmedabad',
-    year: 'Studio Assignment · Indus University',
+    year: '',
     heroImage: '/assets/aistudio/image_9cfe9635.png',
     summary: 'Adaptive reuse of the existing fruit market at Manek Chowk, Ahmedabad, transforming its busy market environment into a calm space for meditation, spa and relaxation, alongside a sustainable retail store offering candles and scented items made from discarded flowers from the nearby flower market.',
     scope: [
@@ -692,9 +691,9 @@ export const PROJECTS: ProjectCaseStudy[] = [
     category: 'residential',
     categoryLabel: 'Residential / Kitchen Interior Design',
     location: 'Self-Defined Residential Studio Space',
-    year: 'Studio Assignment · Indus University',
+    year: '',
     heroImage: '/assets/aistudio/download__7__eb916b79.jpg',
-    summary: 'An academic kitchen interior design assignment developing an efficient, well-organised parallel galley kitchen with clear millimeter-level zoning, CAD and rendered plans and elevations, cohesive green marble and wood finishes, and specified appliances and hardware.',
+    summary: 'A kitchen interior design project developing an efficient, well-organised parallel galley kitchen with clear millimeter-level zoning, CAD and rendered plans and elevations, cohesive green marble and wood finishes, and specified appliances and hardware.',
     scope: [
       'Project Brief & Concept Brief',
       'Mood Board & Material Selection',
@@ -817,7 +816,7 @@ export const PROJECTS: ProjectCaseStudy[] = [
 
     reflection: {
       learnings: 'Developing both architectural CAD documentation and material/product schedules demonstrated how precise cabinet widths (300–1200 mm) and real appliance footprints govern everyday kitchen ergonomics.',
-      academicSignificance: '03 | Kitchen Interior Design — Indus University, Ahmedabad'
+      academicSignificance: '03 | Kitchen Interior Design — Parallel Galley Kitchen'
     },
 
     kitchenCaseStudy: {
@@ -1115,8 +1114,8 @@ export const PROJECTS: ProjectCaseStudy[] = [
     subtitle: 'Royal Strength Meets Coastal Breeze · 2-in-1 Punjab & Goa Heritage Jhula',
     category: 'furniture',
     categoryLabel: 'Furniture / Cultural Fusion Design',
-    location: 'Punjab & Goa Heritage Study · Indus University',
-    year: 'Studio Assignment · Indus University',
+    location: 'Punjab & Goa Heritage Study',
+    year: '',
     heroImage: '/assets/furniture-extracted/render_01_jhula_swing.png',
     summary: 'A fusion furniture piece combining the royal craftsmanship of Punjab with the architectural heritage and coastal furniture traditions of Goa — transforming from a hanging jhula into detachable low-floor seating.',
     scope: [
@@ -1240,7 +1239,7 @@ export const PROJECTS: ProjectCaseStudy[] = [
 
     reflection: {
       learnings: 'Reinterpreting Punjab and Goa heritage into one joinery-authentic 2-in-1 furniture piece required balancing structural dynamic swing loads with detachable low-seating proportions.',
-      academicSignificance: '04 | Fusion Furniture Design — Indus University, Ahmedabad'
+      academicSignificance: '04 | Fusion Furniture Design — Royal Breeze Swing'
     },
 
     fusionFurnitureCaseStudy: {
@@ -1574,9 +1573,9 @@ export const PROJECTS: ProjectCaseStudy[] = [
     title: 'Villa Interior Design',
     subtitle: 'Natural Modern Interior Design · Existing Villa Redesign, Ahmedabad',
     category: 'residential',
-    categoryLabel: 'Residential Interior · Academic Assignment',
+    categoryLabel: 'Residential Interior · Villa Design',
     location: 'Ahmedabad',
-    year: 'Studio Assignment · Indus University',
+    year: '',
     heroImage: '/assets/aistudio/image_e3767538.png',
     summary: 'The project involved selecting an existing villa in Ahmedabad and redesigning its interiors while keeping the original floor plan unchanged. Guided by a Natural Modern Interior Design theme.',
     scope: [
@@ -1928,148 +1927,256 @@ export const PROJECTS: ProjectCaseStudy[] = [
   },
 
   {
-    id: 'uxui-exploration',
+    id: 'staircase-design',
     number: '06',
-    title: 'Materia — Spatial Spec & Materiality',
-    subtitle: 'Digital Tool for Interior Architects & Material Specifiers',
-    category: 'digital-ux',
-    categoryLabel: 'Digital Experience / UX/UI',
-    location: 'Digital Product / Studio Research',
-    year: '2025',
-    heroImage: uxuiMateriaHero,
-    summary: 'A user-centered digital tool and spatial specification system designed specifically for interior architects to archive tactile material samples, track carbon footprints, and generate interactive client moodboards.',
-    scope: ['UX Research', 'Information Architecture', 'Design Systems', 'Figma Wireframing & Prototyping', 'Spatial UX/UI Testing'],
+    title: 'Contemporary Staircase Design',
+    subtitle: 'Two-Flight Timber & Vertical Tensile Rope Staircase Within a Brick Frame',
+    category: 'architectural-element',
+    categoryLabel: 'Spatial Element / Staircase Design',
+    location: 'Framed Brick & Water Court',
+    year: '',
+    heroImage: '/assets/staircase-extracted/staircase_3d_view_01.png',
+    summary: 'The project involved designing a unique staircase by exploring its form, materials, and structural expression. The design combines a two-flight staircase, wooden treads, and vertical tensile ropes to create a distinctive staircase within a framed space.',
+    scope: [
+      'Project Brief & Concept Brief',
+      'Mood Board & Material Curation',
+      'Plans (Staircase & Water Body)',
+      'Section AA’ & Orthographic Elevation',
+      'Details A (Scale 1:8) & B (Scale 1:10)',
+      '3D Views & Physical Scale Model'
+    ],
 
-    introduction: 'Interior design studio practice is heavily weighed down by fragmented material sampling, disorganized physical swatch bins, and mismatched specification sheets. "Materia" is an exploratory digital tool bridging physical tactile materiality with modern digital project workflows.',
+    introduction: 'The project involved designing a unique staircase by exploring its form, materials, and structural expression. The design combines a two-flight staircase, wooden treads, and vertical tensile ropes to create a distinctive staircase within a framed space.',
 
     designBrief: {
-      clientOrContext: 'Self-Directed Spatial Research & UX/UI Exploration, Indus University',
-      challenge: 'Designers spend an estimated 28% of project hours hunting for manufacturer spec sheets, verifying lead times, and transferring finish schedules manually into AutoCAD or Revit tables.',
+      clientOrContext: '06 | Contemporary Staircase Design — Framed Brick & Water Space',
+      challenge: 'Exploring architectural lightness and structural suspension through a two-flight staircase combining timber treads and slender vertical tensile ropes inside a solid brick frame.',
       objectives: [
-        'Create an intuitive visual taxonomy that categorizes materials by tactile feel, environmental durability, and carbon footprint.',
-        'Develop an interactive moodboard canvas with real-time lighting simulation (daylight vs warm interior tungsten).',
-        'Export one-click synchronized finish schedules directly formatted for architectural contractors and quantity surveyors.'
+        'Combine a two-flight staircase, wooden treads, and vertical tensile ropes within a compact 2843 × 2794 mm framed enclosure.',
+        'Balance the solidity of the brick frame and concrete slab against slender 15 mm vertical tensile ropes.',
+        'Integrate a reflective water feature (+100 mm finish level) below the flights to add depth and a quiet visual layer.'
       ]
     },
 
     siteContext: {
-      locationDetails: 'Designed for desktop workstations, iPad Pro field sampling, and client presentation displays.',
-      microclimate: 'Optimized for high-contrast architectural studio environments with dark and warm-light editorial modes.',
-      culturalContext: 'Bridging traditional craft suppliers across India (stone quarries, textile weavers) with modern digital architectural studios.'
+      locationDetails: 'Framed 2843 × 2794 mm masonry enclosure open across a ground-level water body.',
+      microclimate: 'Natural daylight washes across the textured white wall plane, casting rhythmic linear shadows from the vertical tensile ropes.',
+      culturalContext: 'Tactile pairing of brick masonry, warm oak wood, brass inlay edge trim, stone textures, and reflective water.'
     },
 
     research: {
-      methodology: 'In-depth interviews with 18 practicing interior designers, 6 architectural interns, and 4 material vendors in Ahmedabad and Mumbai.',
+      methodology: 'Structural & joinery exploration detailing vertical tensile rope anchoring, composite tread layering, and wall-to-tread connections.',
       insights: [
-        '84% of designers still carry physical swatch boxes to meetings because current software does not convey texture or reflectivity.',
-        'Material specification errors account for significant budget overruns due to misunderstood finish compatibility.',
-        'Designers rejected complex 3D rendering interfaces; they demanded a clean, lightning-fast editorial 2D canvas.'
+        'Detail A (Scale 1:8): 15 mm tensile rope anchored underside with screw fastening through the 56 mm × 254 mm composite tread.',
+        'Composite Tread Build-Up: Concrete slab inlay (226 mm width), brass inlay divider, and 28 mm oak wood outer lip.',
+        'Detail B (Scale 1:10): Dual screw anchor fixing the stair treads and mid-landing cleanly into the brick perimeter wall.'
       ]
     },
 
     userStudy: [
       {
-        role: 'The Lead Interior Architect',
-        needs: 'Rapidly assemble tactile palettes, check regional availability, and send approved finish schedules to site engineers.',
-        spatialResponse: 'High-speed search by tactile descriptors (e.g., "honed", "open-pore", "brushed") and automated BOM export.'
-      },
-      {
-        role: 'The Architectural Intern / Sourcing Lead',
-        needs: 'Quick photo upload of physical samples on construction sites with auto-color palette extraction and vendor tagging.',
-        spatialResponse: 'Mobile camera quick-scan with automatic perspective correction and Pantone matching.'
-      },
-      {
-        role: 'The Studio Client',
-        needs: 'Visually understand how materials look together under different room lighting conditions without deciphering complex technical codes.',
-        spatialResponse: 'Interactive "Daylight Slider" demonstrating material luster from 08:00 morning sun to 21:00 evening lamplight.'
+        role: 'Circulation Experience',
+        needs: 'Visual openness and clear vertical rhythm while ascending between +152 mm, +1302 mm mid-landing, and +2502 mm finish levels.',
+        spatialResponse: 'Two-flight return staircase with 254 mm deep treads, 915 mm mid-landing, and floor-to-ceiling vertical tensile rope screen.'
       }
     ],
 
     conceptDevelopment: {
-      primaryMetaphor: 'The Digital Cutting Table — An infinite tactile surface where physical samples, swatches, and sketches meet.',
+      primaryMetaphor: 'The concept explores the visual lightness of a staircase through the combination of timber treads and slender vertical tensile ropes. Set within a brick frame, the staircase creates a contrast between solid and lightweight elements, while the water feature below adds another visual layer to the overall composition.',
       spatialPrinciples: [
-        'Tactile Micro-Interactions: Sound design and subtle physics replicating the tactile placement of stone and cloth.',
-        'Information Density Control: Progressive disclosure allowing designers to switch between clean moodboard view and dense technical specification table.',
-        'Zero-Slop Typography: Clear Swiss-inspired editorial layout celebrating high-resolution material photography.'
+        'Solid vs. Lightweight Contrast: Textured brick enclosure framing floating wooden treads and slender vertical tensile ropes.',
+        'Suspended Structural Expression: Full-height 15 mm vertical tensile ropes anchored from the ceiling slab to the tread underside.',
+        'Layered Ground Reflection: Lower water body at +100 mm finish level mirroring light, vertical ropes, and floating timber steps.'
       ]
     },
 
     ideation: {
       explorations: [
-        'Over 40 low-fidelity wireframe user flows mapping the sample creation to client presentation journey.',
-        'Design token system defining 16 neutral surface tints mirroring architectural concrete, limestone, and linen.',
-        'Usability testing with 12 interior design students measuring task completion speed for generating a 12-item finish schedule.'
+        'Mood Board uniting dark walnut & live-edge timber, veined marble, rough limestone, reflective koi water basin, slender vertical tension rods, and warm wall sconces.',
+        'Measured CAD Plan (2843 × 2794 mm), Water Body Plan (+100 mm), Section AA’ (+100 to +2502 mm), Orthographic Elevation, and Scales 1:8 / 1:10 Joinery Details.',
+        'Three 3D architectural views (isometric, front, side section) paired with a close-up physical scale model study over water.'
       ],
-      evolution: 'Initial wireframes tried to include full 3D room generation. User feedback showed this distracted from the core need. The tool pivoted to master 2D tactile curation and accurate technical data.'
+      evolution: 'Developed from concept brief and material mood board into dimensioned millimeter plans, sections, scaled joinery details A & B, 3D views, and a physical model.'
     },
 
     zoning: {
-      publicToPrivateRatio: 'Component Architecture: 4 Main Workspaces (Archive / Studio Canvas / Spec Matrix / Client Portal)',
+      publicToPrivateRatio: 'Lower Water Body (+100 mm) · Flight 01 (Steps 01–07) · Mid-Landing (+1302 mm) · Flight 02 (Steps 09–16 to +2502 mm)',
       zones: [
-        { name: 'The Material Archive & Taxonomy', percentage: 35, description: 'Filterable database of 2,400+ indexed stones, timbers, fabrics, and metals with acoustic & fire-rating data.' },
-        { name: 'The Interactive Studio Canvas', percentage: 35, description: 'Freeform tactile moodboard workspace with dynamic lighting controls and scale calibration.' },
-        { name: 'The Technical Spec Matrix', percentage: 20, description: 'Tabular specification sheet with live pricing, supplier contacts, and automated export to CSV/PDF.' },
-        { name: 'The Client Presentation View', percentage: 10, description: 'Clean, distraction-free fullscreen presentation mode for client reviews.' }
+        { name: 'Lower Flight (Steps 01–07)', percentage: 35, description: 'Seven 254 mm composite treads rising from +152 mm finish level toward the mid-landing.' },
+        { name: 'Mid-Landing (Step 08 · +1302 mm)', percentage: 20, description: '915 mm deep cantilevered landing anchoring the turn between both flights (1202 mm rise from water slab).' },
+        { name: 'Upper Flight (Steps 09–16)', percentage: 30, description: 'Ascending second flight suspended on vertical tensile ropes up to +2502 mm upper finish level.' },
+        { name: 'Water Body (+100 mm)', percentage: 15, description: 'Full-footprint reflective water pool seated beneath the open staircase volume.' }
       ]
     },
 
     spatialPlanning: {
-      circulationConcept: 'Three-pane layout: Left collapsible taxonomy tree, central high-resolution visual workspace, right contextual property inspector.',
+      circulationConcept: 'Two-flight U-shaped ascent framed within a 2843 × 2794 mm brick shell, stepping directly above an unbroken water court.',
       keyTransitions: [
-        'Fluid drag-and-drop mechanics with spatial snapping to modular architectural grids.',
-        'Instant toggle between "Tactile Lookbook" mode and "Contractor Data Matrix" mode.'
+        'Entry step (+152 mm finish level) rising across seven suspended treads past vertical tensile ropes.',
+        'Half-turn across the 915 mm mid-landing (+1302 mm finish level) into the upper flight ascending to +2502 mm.'
       ]
     },
 
     materialPalette: [
-      { name: 'Stone & Masonry Module', category: 'Taxonomy Category', description: 'Sandstone, marble, limestone, granite with porosity, slip rating, and quarry geolocation.', finish: 'Interactive Texture Map', colorHex: '#BDB39E' },
-      { name: 'Timber & Joinery Module', category: 'Taxonomy Category', description: 'Hardwoods, softwoods, veneers, hardwax oils, and FSC sustainability certification flags.', finish: 'Grain Orientation Vector', colorHex: '#9E7453' },
-      { name: 'Textile & Upholstery Module', category: 'Taxonomy Category', description: 'Linens, wools, bouclés, rub counts (Martindale test ratings), and fire retardancy ratings.', finish: 'Weave Simulation', colorHex: '#D5CBB9' },
-      { name: 'Metals & Hardware Module', category: 'Taxonomy Category', description: 'Brass, bronze, blackened steel, anodized aluminum with patina degradation timelines.', finish: 'Specular Luster', colorHex: '#8F8265' }
+      { name: 'Oak Wood Treads', category: 'Primary Timber', description: 'Warm oak wood tread casing forming the floating step profile (254 × 56 mm).', finish: 'Natural Matte Timber', colorHex: '#8E623D' },
+      { name: 'Concrete Slab Inlay', category: 'Tread Core & Ceiling', description: '226 mm recessed concrete tread insert paired with the overhead concrete roof slab.', finish: 'Raw Cast Concrete', colorHex: '#B6B4AE' },
+      { name: 'Brass Inlay', category: 'Joinery Trim', description: 'Refined brass inlay detail separating oak wood casing and concrete tread insert.', finish: 'Brushed Brass', colorHex: '#B89548' },
+      { name: '15 mm Tensile Rope', category: 'Structural Suspension', description: 'Slender vertical tensile ropes anchored underside via screws to suspend the flights.', finish: 'Matte Black Tension Rod / Rope', colorHex: '#25272C' },
+      { name: 'Brick Frame & Reflective Water', category: 'Enclosure & Base', description: 'Solid masonry walls framing an atmospheric water feature (+100 mm finish level) below.', finish: 'Textured Brick & Water', colorHex: '#7A4230' }
     ],
 
     furnitureAndLighting: {
-      lightingStrategy: 'Interactive UI Simulation: Dynamic Kelvins control from 2000K (Candlelight) to 6500K (Overcast Sky) recalculating screen luminance.',
+      lightingStrategy: 'Top daylight shafts filtering down the vertical tensile ropes to cast graphic diagonal shadows across the framed brick wall and water pool.',
       keyPieces: [
-        'The Tactile Canvas Viewport (60 FPS zoom and pan engine)',
-        'The Material Card with Front/Side/Macro Edge Inspector',
-        'The Export Engine generating formatted CSI MasterFormat specs'
+        'Composite Oak Wood, Brass Inlay & Concrete Slab Treads (254 mm × 56 mm)',
+        'Full-Height 15 mm Vertical Tensile Ropes with Underside Screw Anchor (Detail A)',
+        'Masonry Wall Screw-Fixed Tread Brackets (Detail B)'
       ],
-      fixtures: ['Clean minimalist vector iconography', 'High-contrast typography in JetBrains Mono and Plus Jakarta Sans']
+      fixtures: ['15 mm Tensile Ropes', 'Brass Inlay Edge Trim', 'Flush Wall Sconce Washers (Mood Board)']
     },
 
-    technicalDrawings: [
-      {
-        id: 'ux-flow-01',
-        title: 'Information Architecture & User Flow Diagram',
-        type: 'Diagram',
-        scale: 'N.T.S.',
-        caption: 'Complete structural flow from physical material intake to client presentation and automated CSI specification output.',
-        svgType: 'spatial-wireframe'
-      },
-      {
-        id: 'ux-wire-02',
-        title: 'Hi-Fi Design System & Layout Grid Specs',
-        type: 'Plan',
-        scale: '1:1 Pixel Grid',
-        caption: '8pt baseline grid specifications, token hierarchy, and responsive breakpoint mechanics for iPad and desktop.',
-        svgType: 'spatial-wireframe'
-      }
-    ],
+    technicalDrawings: [],
 
     visualizations: [
-      { perspective: 'Studio Canvas on 27" Studio Display', caption: 'High-density material layout comparing honed travertine, fluted oak, and slubbed linen under 2700K lighting.' },
-      { perspective: 'Mobile iPad Field Capture Interface', caption: 'Quick-capture UI with real-time Pantone extraction in a stone quarry setting.' }
+      { perspective: '3D View 01 — Isometric Perspective', caption: 'Full isometric view showing the brick frame, two-flight oak treads, vertical tensile ropes, and koi water feature.', imageUrl: '/assets/staircase-extracted/staircase_3d_view_01.png' },
+      { perspective: '3D View 02 — Front Elevation Perspective', caption: 'Front 3D view illustrating flight alignment, mid-landing, ceiling rope anchors, and water pool base.', imageUrl: '/assets/staircase-extracted/staircase_3d_view_02.png' },
+      { perspective: '3D View 03 — Side Sectional Perspective', caption: 'Cutaway 3D perspective revealing slatted shadow play and cantilever depth across both flights.', imageUrl: '/assets/staircase-extracted/staircase_3d_view_03.png' },
+      { perspective: '3D View 04 — Physical Scale Model', caption: 'Close-up scale model studying timber treads, brass detailing, tensile rods, and teal water reflection.', imageUrl: '/assets/staircase-extracted/staircase_model_view_04.png' }
     ],
 
     finalDesign: {
-      description: 'Materia proves that interior design and digital product design share the same fundamental DNA: understanding human behavior, spatial layout, visual hierarchy, and functional delight. It equips emerging designers with professional, efficient workflows.',
-      deliverables: ['Full Figma Design System with 180+ Reusable Components', 'Interactive Clickable Prototype in Figma & React', 'Comprehensive Usability Testing Research Report', 'API Schema for Architectural Supplier Integration']
+      description: 'Combining wooden treads, brass inlays, concrete inserts, and 15 mm vertical tensile ropes inside a brick frame above a water body, the staircase achieves visual lightness without sacrificing structural clarity.',
+      deliverables: [
+        'Project Brief & Concept Brief',
+        'Material & Atmosphere Mood Board',
+        'Measured Staircase Plan (2843 × 2794 mm) & Water Body Plan (+100 mm)',
+        'Section AA’ (+100 to +2502 mm) & Elevation',
+        'Detail A (Scale 1:8) & Detail B (Scale 1:10)',
+        '3D Views & Physical Scale Model Study'
+      ]
     },
 
     reflection: {
-      learnings: 'Exploring UX/UI as an interior designer demonstrated that interfaces are digital rooms: they require clear circulation, logical sightlines, deliberate material textures, and zero cognitive clutter.',
-      academicSignificance: 'Special Recognition in Cross-Disciplinary Design, Indus University (2025).'
+      learnings: 'Exploring how form, material contrast, and slender vertical tension elements can turn everyday vertical circulation into an expressive spatial centerpiece.',
+      academicSignificance: '06 | Contemporary Staircase Design — Structural & Material Expression'
+    },
+
+    staircaseCaseStudy: {
+      subHeader: 'Two-Flight Timber & Tensile Rope Staircase Within a Brick Frame',
+      projectBrief: 'The project involved designing a unique staircase by exploring its form, materials, and structural expression. The design combines a two-flight staircase, wooden treads, and vertical tensile ropes to create a distinctive staircase within a framed space.',
+      conceptBrief: 'The concept explores the visual lightness of a staircase through the combination of timber treads and slender vertical tensile ropes. Set within a brick frame, the staircase creates a contrast between solid and lightweight elements, while the water feature below adds another visual layer to the overall composition.',
+      measurementsUnit: 'ALL THE MEASUREMENTS ARE IN MM',
+      keyDimensions: [
+        { label: 'Overall Framed Footprint', value: '2843 × 2794 mm (1168 + 306 + 1168 mm)' },
+        { label: 'Mid-Landing Width', value: '915 mm (+1302 mm Finish Level)' },
+        { label: 'Tread Depth × Height', value: '254 mm × 56 mm (28 mm Oak / 226 mm Concrete)' },
+        { label: 'Vertical Finish Levels', value: '+100 mm Water · +152 mm Start · +1302 mm Mid · +2502 mm Top' },
+        { label: 'Suspension Element', value: '15 mm Vertical Tensile Rope with Screw Anchor' },
+      ],
+      materialSpecifications: [
+        'Oak Wood outer tread profile (28 mm lip / 56 mm thickness)',
+        'Concrete Slab recessed tread insert (226 mm) & overhead structural slab',
+        'Brass Inlay precision transition strip between oak wood and concrete',
+        '15 mm Vertical Tensile Ropes anchored through tread underside with screw (Detail A)',
+        'Wall-side dual screw brackets fixed into perimeter brick wall (Detail B)',
+        'Water Body at +100 mm finish level creating reflection beneath the staircase',
+      ],
+      moodboard: {
+        id: 'stair-moodboard',
+        plate: 'Plate 01',
+        title: 'Mood Board — Materiality, Lighting & Water Atmosphere',
+        subtitle: 'Walnut & live-edge timber, veined marble, rough limestone, wall sconces, slender vertical tension rods, koi water pool, and botanical accents.',
+        imageUrl: '/assets/staircase-extracted/staircase_moodboard.png',
+        category: 'moodboard',
+      },
+      plans: {
+        staircasePlan: {
+          id: 'stair-plan-main',
+          plate: 'Plate 02',
+          title: 'Staircase Plan (All Measurements in mm)',
+          subtitle: '2843 × 2794 mm brick frame · Steps 01–15, 915 mm landing, 254 mm treads, +152 mm & +1302 mm finish levels, Concrete Slab, Brass Inlay, Oak Wood, Tensile Rope, A 1.1 / A’ 1.1 / B 2.1.',
+          imageUrl: '/assets/staircase-extracted/staircase_plan.png',
+          category: 'plan',
+        },
+        waterBodyPlan: {
+          id: 'stair-plan-water',
+          plate: 'Plate 03',
+          title: 'Water Body Plan (+100 mm Finish Level)',
+          subtitle: 'Ground-level water feature situated directly underneath the suspended two-flight staircase within the brick perimeter walls.',
+          imageUrl: '/assets/staircase-extracted/staircase_water_plan.png',
+          category: 'plan',
+        },
+      },
+      sectionsAndElevation: [
+        {
+          id: 'stair-section-aa',
+          plate: 'Plate 04',
+          title: 'Section AA’',
+          subtitle: 'Full vertical cut showing +100 mm base, 1202 mm rise to +1302 mm mid-landing, 2502 mm total height to +2502 mm finish level, steps 1–15, and full-height vertical tensile ropes.',
+          imageUrl: '/assets/staircase-extracted/staircase_section_aa.png',
+          category: 'section-elevation',
+        },
+        {
+          id: 'stair-elevation',
+          plate: 'Plate 05',
+          title: 'Elevation',
+          subtitle: 'Orthographic elevation depicting steps 1–16, vertical tensile rope suspension from ceiling concrete slab, 100 & 50 mm offsets, and Detail B wall support callout.',
+          imageUrl: '/assets/staircase-extracted/staircase_elevation.png',
+          category: 'section-elevation',
+        },
+      ],
+      joineryDetails: [
+        {
+          id: 'stair-detail-a',
+          plate: 'Plate 06 · Scale 1:8',
+          title: 'Detail - A (Scale 1:8) — Tensile Rope & Composite Tread Section',
+          subtitle: '15 mm tensile rope + underside screw anchor; Concrete Slab + Brass Inlay + Oak Wood build-up; 254 mm tread depth × 56 mm total thickness (28 / 226 mm).',
+          imageUrl: '/assets/staircase-extracted/staircase_detail_a.png',
+          category: 'detail',
+        },
+        {
+          id: 'stair-detail-b',
+          plate: 'Plate 07 · Scale 1:10',
+          title: 'Detail - B (Scale 1:10) — Masonry Wall Anchor',
+          subtitle: 'Wall-edge structural connection using dual screw fasteners anchoring the tread/landing profile into the brick wall frame.',
+          imageUrl: '/assets/staircase-extracted/staircase_detail_b.png',
+          category: 'detail',
+        },
+      ],
+      views3D: [
+        {
+          id: 'stair-3d-01',
+          plate: 'Plate 08',
+          title: '3D View 01 — Isometric Framed Space',
+          subtitle: 'Isometric render highlighting brick walls, overhead ceiling frame, slatted vertical shadows, wooden treads, vertical tensile ropes, and koi water feature.',
+          imageUrl: '/assets/staircase-extracted/staircase_3d_view_01.png',
+          category: '3d-view',
+        },
+        {
+          id: 'stair-3d-02',
+          plate: 'Plate 09',
+          title: '3D View 02 — Front Architectural Perspective',
+          subtitle: 'Direct front perspective aligning both flights, mid-landing turn, tensile ropes, and dark reflective pool.',
+          imageUrl: '/assets/staircase-extracted/staircase_3d_view_02.png',
+          category: '3d-view',
+        },
+        {
+          id: 'stair-3d-03',
+          plate: 'Plate 10',
+          title: '3D View 03 — Side Sectional Perspective',
+          subtitle: 'Cutaway perspective illustrating cantilevered mid-landing depth and light interaction against the interior frame.',
+          imageUrl: '/assets/staircase-extracted/staircase_3d_view_03.png',
+          category: '3d-view',
+        },
+        {
+          id: 'stair-model-04',
+          plate: 'Plate 11',
+          title: '3D View 04 — Physical Scale Model Photograph',
+          subtitle: 'Close-up scale model verifying wooden tread spacing, brass edge inlay, dark vertical tensile cords, and textured teal water base.',
+          imageUrl: '/assets/staircase-extracted/staircase_model_view_04.png',
+          category: '3d-view',
+        },
+      ],
     }
   }
 ];

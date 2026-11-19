@@ -41,7 +41,7 @@ export const ContactSection: React.FC<Props> = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         {/* Section Header */}
         <div className="flex items-center gap-2 text-xs font-mono text-[#802C43] dark:text-[#C45D77] uppercase tracking-[0.18em] mb-6">
-          <span>08 / Dialogue</span>
+          <span>03 / Dialogue</span>
           <span aria-hidden="true">·</span>
           <span>Inquiries & Collaborations</span>
         </div>
@@ -79,7 +79,7 @@ export const ContactSection: React.FC<Props> = () => {
                 Dharmi Mojidra
               </p>
               <p>
-                Interior Design Portfolio · Indus University
+                Interior Design Portfolio
               </p>
               <p className="flex items-center gap-1.5 text-[#3D5288] dark:text-[#BFB299]">
                 <MapPin className="w-3.5 h-3.5 text-[#802C43] dark:text-[#C45D77]" />
@@ -129,13 +129,23 @@ export const ContactSection: React.FC<Props> = () => {
 
 
                 {/* LinkedIn */}
-                <div className="border-b border-[#D9CBB1] dark:border-[#2A3759] pb-3 flex items-center justify-between">
+                <a
+                  href="https://www.linkedin.com/in/dharmi-mojidra-9a22a0420"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open Dharmi Mojidra LinkedIn profile in a new tab"
+                  className="border-b border-[#D9CBB1] dark:border-[#2A3759] pb-3 flex items-center justify-between group cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#263D78] dark:focus-visible:outline-[#EFE6D5]"
+                >
                   <div>
                     <span className="text-[11px] font-mono text-[#3D5288] dark:text-[#BFB299] block">LinkedIn</span>
-                    <span className="text-sm font-mono text-[#263D78] dark:text-[#EFE6D5]">Dharmi Mojidra</span>
+                    <span className="text-sm font-mono text-[#263D78] dark:text-[#EFE6D5] group-hover:text-[#802C43] dark:group-hover:text-[#C45D77] transition-colors">
+                      Dharmi Mojidra
+                    </span>
                   </div>
-                  <span className="text-xs font-mono text-[#802C43] dark:text-[#C45D77]">Professional Profile</span>
-                </div>
+                  <span className="text-xs font-mono text-[#802C43] dark:text-[#C45D77] group-hover:underline">
+                    Professional Profile
+                  </span>
+                </a>
               </div>
             </div>
 

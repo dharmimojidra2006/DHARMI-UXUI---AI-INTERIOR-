@@ -9,10 +9,6 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { ProjectsGrid } from './components/ProjectsGrid';
-import { Philosophy } from './components/Philosophy';
-import { ProcessTimeline } from './components/ProcessTimeline';
-import { SkillsSection } from './components/SkillsSection';
-import { EducationSection } from './components/EducationSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ProjectDetailModal } from './components/ProjectDetailModal';
@@ -123,11 +119,12 @@ export default function App() {
           onExploreProjects={handleExploreProjects}
           onSelectProject={(project) => setSelectedProject(project)}
           introActive={introStage === 'active'}
+          isViewingProject={Boolean(selectedProject)}
         />
 
-        {/* Main Page Flow */}
+        {/* Main Page Flow: Cover -> 01 About -> 02 Projects -> 03 Contact */}
         <main className="grow">
-          {/* 01 / Opening Portfolio Cover */}
+          {/* Opening Portfolio Cover */}
           <Hero
             projects={PROJECTS}
             onExploreProjects={handleExploreProjects}
@@ -138,28 +135,16 @@ export default function App() {
             onToggleSound={toggleSound}
           />
 
-          {/* 02 / About Dharmi Mojidra */}
+          {/* 01 / About Dharmi Mojidra (Profile, Philosophy, Education, Skills & Process) */}
           <About />
 
-          {/* 03 / Selected Works Exhibition & Rail */}
+          {/* 02 / Selected Works Exhibition Rail */}
           <ProjectsGrid
             projects={PROJECTS}
             onSelectProject={(project) => setSelectedProject(project)}
           />
 
-          {/* 04 / Design Philosophy */}
-          <Philosophy />
-
-          {/* 05 / 6-Step Process Timeline */}
-          <ProcessTimeline />
-
-          {/* 06 / Skills & Representation */}
-          <SkillsSection />
-
-          {/* 07 / Education & Academic Rigor */}
-          <EducationSection />
-
-          {/* 08 / Contact & Inquiries */}
+          {/* 03 / Contact & Inquiries */}
           <ContactSection />
         </main>
 

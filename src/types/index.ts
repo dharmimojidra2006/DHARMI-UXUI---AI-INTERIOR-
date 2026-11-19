@@ -3,7 +3,7 @@ export type ProjectCategory =
   | 'adaptive-reuse'
   | 'furniture'
   | 'residential'
-  | 'digital-ux';
+  | 'architectural-element';
 
 export interface MaterialItem {
   name: string;
@@ -353,5 +353,32 @@ export interface ProjectCaseStudy {
   marketMindfulnessCaseStudy?: MarketMindfulnessCaseStudyData;
   kitchenCaseStudy?: KitchenCaseStudyData;
   fusionFurnitureCaseStudy?: FusionFurnitureCaseStudyData;
+  staircaseCaseStudy?: StaircaseCaseStudyData;
+}
+
+export interface StaircaseDrawingItem {
+  id: string;
+  plate: string;
+  title: string;
+  subtitle: string;
+  imageUrl: string;
+  category: 'moodboard' | 'plan' | 'section-elevation' | 'detail' | '3d-view';
+}
+
+export interface StaircaseCaseStudyData {
+  subHeader: string;
+  projectBrief: string;
+  conceptBrief: string;
+  moodboard: StaircaseDrawingItem;
+  plans: {
+    staircasePlan: StaircaseDrawingItem;
+    waterBodyPlan: StaircaseDrawingItem;
+  };
+  sectionsAndElevation: StaircaseDrawingItem[];
+  joineryDetails: StaircaseDrawingItem[];
+  views3D: StaircaseDrawingItem[];
+  measurementsUnit: string;
+  keyDimensions: { label: string; value: string }[];
+  materialSpecifications: string[];
 }
 

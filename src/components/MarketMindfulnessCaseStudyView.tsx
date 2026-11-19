@@ -1,16 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { ProjectCaseStudy, MarketMindfulnessDrawingItem } from '../types';
-import {
-  Maximize2,
-  ZoomIn,
-  ZoomOut,
-  RotateCcw,
-  ChevronLeft,
-  ChevronRight,
-  X,
-} from 'lucide-react';
+import { Maximize2 } from 'lucide-react';
 import { CaseStudyCoverHeader } from './CaseStudyCoverHeader';
+import { DrawingLightbox } from './DrawingLightbox';
 
 interface Props {
   project: ProjectCaseStudy;
@@ -30,12 +23,8 @@ export const MarketMindfulnessCaseStudyView: React.FC<Props> = ({
   // Interactive section switcher: both | aa | bb
   const [sectionMode, setSectionMode] = useState<'both' | 'aa' | 'bb'>('both');
 
-  // Lightbox across all 9 plates
+  // Lightbox across all plates
   const [lightboxDrawingId, setLightboxDrawingId] = useState<string | null>(null);
-  const [zoomLevel, setZoomLevel] = useState(100);
-  const [panPosition, setPanPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   const allDrawings: MarketMindfulnessDrawingItem[] = useMemo(() => {
     if (!study) return [];
@@ -55,66 +44,9 @@ export const MarketMindfulnessCaseStudyView: React.FC<Props> = ({
     ];
   }, [study, project.title, project.heroImage]);
 
-  const activeLightboxIndex = lightboxDrawingId
-    ? allDrawings.findIndex((d) => d.id === lightboxDrawingId)
-    : -1;
-  const activeLightboxDrawing =
-    activeLightboxIndex >= 0 ? allDrawings[activeLightboxIndex] : null;
-
   const openLightbox = (drawingId: string) => {
     setLightboxDrawingId(drawingId);
-    setZoomLevel(100);
-    setPanPosition({ x: 0, y: 0 });
   };
-
-  const closeLightbox = () => {
-    setLightboxDrawingId(null);
-    setZoomLevel(100);
-    setPanPosition({ x: 0, y: 0 });
-  };
-
-  const handleZoomIn = () => setZoomLevel((z) => Math.min(z + 25, 250));
-  const handleZoomOut = () => {
-    setZoomLevel((z) => {
-      const next = Math.max(z - 25, 50);
-      if (next <= 100) setPanPosition({ x: 0, y: 0 });
-      return next;
-    });
-  };
-  const handleResetZoom = () => {
-    setZoomLevel(100);
-    setPanPosition({ x: 0, y: 0 });
-  };
-
-  // Capture-phase keyboard navigation so ESC closes Lightbox before modal
-  useEffect(() => {
-    if (!lightboxDrawingId) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        closeLightbox();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        setLightboxDrawingId((curr) => {
-          const idx = allDrawings.findIndex((d) => d.id === curr);
-          const nextIdx = (idx + 1) % allDrawings.length;
-          return allDrawings[nextIdx]?.id || curr;
-        });
-        setPanPosition({ x: 0, y: 0 });
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        setLightboxDrawingId((curr) => {
-          const idx = allDrawings.findIndex((d) => d.id === curr);
-          const prevIdx = (idx - 1 + allDrawings.length) % allDrawings.length;
-          return allDrawings[prevIdx]?.id || curr;
-        });
-        setPanPosition({ x: 0, y: 0 });
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown, true);
-    return () => window.removeEventListener('keydown', handleKeyDown, true);
-  }, [lightboxDrawingId, allDrawings]);
 
   if (!study) return null;
 
@@ -148,7 +80,7 @@ export const MarketMindfulnessCaseStudyView: React.FC<Props> = ({
         metaItems={[
           { label: 'Existing Site', value: 'Fruit Market, Manek Chowk' },
           { label: 'Proposed Programme', value: 'Meditation · Spa · Sustainable Retail' },
-          { label: 'Total Plates', value: `${allDrawings.length} Extracted Plates` },
+          { label: 'Plates', value: 'Extracted Plates' },
         ]}
         scopeTags={project.scope}
         coverPlate={{
@@ -218,10 +150,16 @@ export const MarketMindfulnessCaseStudyView: React.FC<Props> = ({
               ))}
             </nav>
 
-            <div className="pt-6 border-t border-[#D9CBB1] dark:border-[#2A3759] text-xs font-mono text-[#5C6D9B] dark:text-[#988C75] space-y-1">
-              <p className="text-[#263D78] dark:text-[#EFE6D5] font-medium">{allDrawings.length} Extracted Plates</p>
+            <button
+              type="button"
+              onClick={() => openLightbox(allDrawings[0]?.id || 'mm-cover-hero')}
+              className="w-full text-left pt-6 border-t border-[#D9CBB1] dark:border-[#2A3759] text-xs font-mono text-[#5C6D9B] dark:text-[#988C75] hover:text-[#802C43] dark:hover:text-[#C45D77] space-y-1 cursor-pointer transition-colors group"
+            >
+              <p className="text-[#263D78] dark:text-[#EFE6D5] group-hover:text-[#802C43] dark:group-hover:text-[#C45D77] font-medium transition-colors">
+                Extracted Plates
+              </p>
               <p>Click any market photograph, CAD plan, or section to zoom and inspect details.</p>
-            </div>
+            </button>
           </div>
         </aside>
 
@@ -675,150 +613,12 @@ export const MarketMindfulnessCaseStudyView: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* FULLSCREEN DRAWING & PHOTO LIGHTBOX INSPECTOR */}
-      {activeLightboxDrawing && (
-        <div
-          className="fixed inset-0 z-50 bg-[#101626]/95 backdrop-blur-md flex flex-col"
-          role="dialog"
-          aria-modal="true"
-        >
-          {/* Lightbox Header Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-8 py-4 border-b border-[#EFE6D5]/15 text-[#EFE6D5] shrink-0">
-            <div className="text-xs font-mono">
-              <span className="text-[#E598AC] font-semibold">
-                {activeLightboxDrawing.plate}
-              </span>
-              <span className="mx-2 text-[#EFE6D5]/40">·</span>
-              <span className="text-[#EFE6D5] font-medium">
-                {activeLightboxDrawing.title}
-              </span>
-              <span className="hidden md:inline text-[#EFE6D5]/55 ml-3">
-                ({activeLightboxIndex + 1} / {allDrawings.length})
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2.5">
-              {/* Zoom Controls */}
-              <div className="flex items-center border border-[#EFE6D5]/25 bg-[#101626]/70 px-2 py-1 text-xs font-mono">
-                <button
-                  type="button"
-                  onClick={handleZoomOut}
-                  className="p-1 hover:text-[#E598AC] cursor-pointer"
-                  aria-label="Zoom out"
-                >
-                  <ZoomOut className="w-3.5 h-3.5" />
-                </button>
-                <span className="px-2 min-w-12 text-center tabular-nums">
-                  {zoomLevel}%
-                </span>
-                <button
-                  type="button"
-                  onClick={handleZoomIn}
-                  className="p-1 hover:text-[#E598AC] cursor-pointer"
-                  aria-label="Zoom in"
-                >
-                  <ZoomIn className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={handleResetZoom}
-                  className="p-1 ml-1 hover:text-[#E598AC] cursor-pointer"
-                  aria-label="Reset zoom"
-                >
-                  <RotateCcw className="w-3 h-3" />
-                </button>
-              </div>
-
-              <button
-                type="button"
-                onClick={closeLightbox}
-                className="px-3 py-1.5 bg-[#F3EBDD] dark:bg-[#1C2845] text-[#263D78] dark:text-[#EFE6D5] hover:bg-[#802C43] hover:text-[#F8F3E8] dark:hover:bg-[#C45D77] dark:hover:text-[#101626] transition-colors text-xs font-mono uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
-              >
-                <X className="w-3.5 h-3.5" />
-                <span>Close [ESC]</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Interactive Drawing Viewport */}
-          <div
-            className="grow overflow-auto p-4 sm:p-8 flex items-center justify-center relative"
-            onMouseDown={(e) => {
-              if (zoomLevel > 100) {
-                setIsDragging(true);
-                setDragStart({
-                  x: e.clientX - panPosition.x,
-                  y: e.clientY - panPosition.y,
-                });
-              }
-            }}
-            onMouseMove={(e) => {
-              if (isDragging && zoomLevel > 100) {
-                setPanPosition({
-                  x: e.clientX - dragStart.x,
-                  y: e.clientY - dragStart.y,
-                });
-              }
-            }}
-            onMouseUp={() => setIsDragging(false)}
-            onMouseLeave={() => setIsDragging(false)}
-            style={{
-              cursor:
-                zoomLevel > 100 ? (isDragging ? 'grabbing' : 'grab') : 'default',
-            }}
-          >
-            <div
-              className="bg-[#F8F3E8] dark:bg-[#1E2A47] p-3 sm:p-6 shadow-2xl max-w-5xl w-full transition-transform origin-center"
-              style={{
-                transform: `scale(${zoomLevel / 100}) translate(${panPosition.x}px, ${panPosition.y}px)`,
-                transition: isDragging ? 'none' : 'transform 0.15s ease-out',
-              }}
-            >
-              <img
-                src={activeLightboxDrawing.imageUrl}
-                alt={activeLightboxDrawing.title}
-                referrerPolicy="no-referrer"
-                className="w-full max-h-[75vh] object-contain mx-auto select-none"
-              />
-            </div>
-          </div>
-
-          {/* Lightbox Footer Navigation */}
-          <div className="flex flex-wrap items-center justify-between gap-4 px-4 sm:px-8 py-3.5 border-t border-[#EFE6D5]/15 text-xs font-mono text-[#EFE6D5]/80 shrink-0">
-            <span className="truncate max-w-xl">
-              {activeLightboxDrawing.subtitle}
-            </span>
-
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={() => {
-                  const prevIdx =
-                    (activeLightboxIndex - 1 + allDrawings.length) %
-                    allDrawings.length;
-                  openLightbox(allDrawings[prevIdx].id);
-                }}
-                className="px-3 py-1.5 border border-[#EFE6D5]/25 hover:border-[#EFE6D5] text-[#EFE6D5] flex items-center gap-1 cursor-pointer"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-                <span>Previous</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  const nextIdx =
-                    (activeLightboxIndex + 1) % allDrawings.length;
-                  openLightbox(allDrawings[nextIdx].id);
-                }}
-                className="px-3 py-1.5 border border-[#EFE6D5]/25 hover:border-[#EFE6D5] text-[#EFE6D5] flex items-center gap-1 cursor-pointer"
-              >
-                <span>Next</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <DrawingLightbox
+        items={allDrawings}
+        activeId={lightboxDrawingId}
+        onSelectId={setLightboxDrawingId}
+        onClose={() => setLightboxDrawingId(null)}
+      />
     </div>
   );
 };
