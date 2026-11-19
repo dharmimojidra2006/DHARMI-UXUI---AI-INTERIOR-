@@ -1,0 +1,276 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --color-beige-primary: #E9DFC9;
+  --color-beige-light: #F3EBDD;
+  --color-beige-muted: #D9CBB1;
+  --color-royal-blue: #263D78;
+  --color-deep-blue: #1C2D58;
+  --color-burgundy: #802C43;
+  --color-burgundy-soft: #A04A60;
+}
+
+:root {
+  color-scheme: light;
+  --theme-bg: #E9DFC9;
+  --theme-bg-alt: #E3D7BF;
+  --theme-surface: #F3EBDD;
+  --theme-paper: #F8F3E8;
+  --theme-panel: #DFD2B8;
+  --theme-border: #D9CBB1;
+  --theme-border-strong: #C7B697;
+  --theme-text: #263D78;
+  --theme-text-body: #1C2D58;
+  --theme-text-secondary: #3D5288;
+  --theme-text-muted: #5C6D9B;
+  --theme-accent: #802C43;
+  --theme-accent-soft: #A04A60;
+  --theme-accent-wash: #EAD9DC;
+}
+
+html.dark {
+  color-scheme: dark;
+  --theme-bg: #101626;
+  --theme-bg-alt: #141C30;
+  --theme-surface: #18223A;
+  --theme-paper: #1C2845;
+  --theme-panel: #1C2845;
+  --theme-border: #2A3759;
+  --theme-border-strong: #3A4B75;
+  --theme-text: #EFE6D5;
+  --theme-text-body: #DDD1BC;
+  --theme-text-secondary: #BFB299;
+  --theme-text-muted: #988C75;
+  --theme-accent: #C45D77;
+  --theme-accent-soft: #A04A60;
+  --theme-accent-wash: #341A26;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+  overflow-x: hidden;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+.font-serif-architectural {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-mono-technical {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Reusable editorial hierarchy classes */
+.editorial-label {
+  font-family: var(--font-mono);
+  color: var(--theme-accent);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.editorial-heading {
+  font-family: var(--font-serif);
+  color: var(--theme-text);
+  letter-spacing: -0.015em;
+}
+
+.editorial-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--theme-accent);
+}
+
+.editorial-body {
+  font-family: var(--font-sans);
+  color: var(--theme-text-body);
+  line-height: 1.72;
+}
+
+/* Custom architectural scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--theme-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #C7B697;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #2D3B5E;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #802C43;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #A04A60;
+}
+
+/* Custom architectural cursor — desktop fine-pointer only; preserve native input & selection behavior */
+@media (pointer: fine) and (hover: hover) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+
+  html.has-custom-cursor input,
+  html.has-custom-cursor textarea,
+  html.has-custom-cursor select,
+  html.has-custom-cursor [contenteditable="true"] {
+    cursor: text !important;
+  }
+}
+
+/* Opening Cover Kinetic Animations (GPU-composited + SVG stroke draw) */
+@keyframes heroMaskRise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 105%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes heroFadeSettle {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes draftLineDraw {
+  0% {
+    stroke-dashoffset: 1400;
+    opacity: 0.15;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes scaleRuleX {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.animate-hero-rise {
+  animation: heroMaskRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-hero-fade {
+  animation: heroFadeSettle 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-draft-draw {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: draftLineDraw 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-rule-x {
+  transform-origin: center center;
+  animation: scaleRuleX 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.writing-vertical-rl {
+  writing-mode: vertical-rl;
+}
+
+.hero-outline-type {
+  -webkit-text-stroke: 1.5px #263D78;
+  color: transparent;
+  transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1), -webkit-text-stroke-color 0.35s ease;
+}
+
+.hero-outline-type:hover {
+  color: #263D78;
+}
+
+html.dark .hero-outline-type {
+  -webkit-text-stroke-color: #EFE6D5;
+}
+
+html.dark .hero-outline-type:hover {
+  color: #EFE6D5;
+}
+
+@keyframes gentleArrowDrift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, 5px, 0);
+  }
+}
+
+.animate-scroll-drift {
+  animation: gentleArrowDrift 2.8s ease-in-out infinite;
+}
+
+/* Hide scrollbars while preserving scrollability */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Tactile Warm Architectural Paper Texture (Pure SVG micro-grain) */
+.paper-grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.032'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 220px 220px;
+}
+
+html.dark .paper-grain-overlay {
+  opacity: 0.5;
+}
+
+/* Exhibition hairline tick pattern */
+.architectural-datum-grid {
+  background-image:
+    linear-gradient(to right, rgba(38, 61, 120, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(38, 61, 120, 0.045) 1px, transparent 1px);
+  background-size: 96px 96px;
+}
+
+html.dark .architectural-datum-grid {
+  background-image:
+    linear-gradient(to right, rgba(239, 230, 213, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(239, 230, 213, 0.035) 1px, transparent 1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-rise,
+  .animate-hero-fade,
+  .animate-draft-draw,
+  .animate-rule-x,
+  .animate-scroll-drift {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
